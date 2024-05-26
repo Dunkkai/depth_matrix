@@ -1,0 +1,35 @@
+m = [
+    [0,1,1,0,0,0,0,0,0,0], #1
+    [1,0,1,1,0,0,0,0,0,0], #2
+    [1,1,0,0,1,0,0,1,0,0],#3
+    [0,1,0,0,1,1,0,0,0,0],#4
+    [0,0,1,1,0,1,1,1,0,0], #5
+    [0,0,0,1,1,0,1,0,0,0], #6
+    [0,0,0,0,1,1,0,1,0,0], #7
+    [0,0,1,0,1,0,1,0,1,1], #8
+    [0,0,0,0,0,0,0,1,0,1], #9
+    [0,0,0,0,0,0,0,1,1,0], #10
+]
+
+def dfs_find_path(graph, start, end, visited=None, path=None):
+    if visited is None:
+        visited = set()
+    if path is None:
+        path = []
+
+    visited.add(start)
+    path = path + [start]
+
+    if start == end:
+        print("Путь найден:", path)
+        return path
+
+    for i, val in enumerate(graph[start - 1]):
+        if val == 1 and (i + 1) not in visited:
+            new_path = dfs_find_path(graph, i + 1, end, visited, path)
+            if new_path:
+                return new_path
+
+    return None
+
+dfs_find_path(m, 3, 10)
